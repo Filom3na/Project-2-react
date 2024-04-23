@@ -26,13 +26,15 @@ export default function Watched() {
     setMovies(storedWatched);
   }, [movies]);
 
-  // useEffect to add the favourite film to local storage
+  //useEffect to add the watched film to local storage
   useEffect(() => {
     localStorage.setItem("watched", JSON.stringify(watched));
-  }, [movies]);
+  }, [watched]);
 
 
-  //Function to handle adding and removing from favourites
+
+
+  //Function to handle adding and removing from watched
   function handleWatched(movie) {
     const isWatched = watched.some(
       (watchedMovie) => watchedMovie.id === movie.id,
@@ -44,6 +46,8 @@ export default function Watched() {
       :
         setWatched([...watched, movie]);
   }
+
+
 
   return (
     <>

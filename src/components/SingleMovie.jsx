@@ -14,7 +14,7 @@ export default function SingleMovie() {
 
   const { id } = useParams();
   const favourite = JSON.parse(localStorage.getItem("favourites")) || [];
-  console.log(favourite);
+ 
   const watchedMovie = JSON.parse(localStorage.getItem("watched")) || [];
 
   useEffect(() => {
@@ -38,7 +38,6 @@ export default function SingleMovie() {
   const isWatched = (id) => {
     return watchedMovie.some((seenMovie) => seenMovie.id === id);
   };
-  // const isWatched = (id) => watchedMovie.some((watchedMovie) => watchedMovie.id === id);
 
   return (
     <div>
@@ -52,11 +51,11 @@ export default function SingleMovie() {
 
             <Col className="my-auto">
               <h2 className="pb-2">{movie.title}</h2>
-              <h4>Genres: {movie.genres}</h4>
+              <h4>Genres: {movie.genres.join(', ')}</h4>
               <h4>Year: {movie.year}</h4>
               <h4>Rating: {movie.rating}</h4>
               <h4>
-                🩷: {isFavourite(movie.id) ? "Favourite" : "Not Favourite"}
+                🩷: {isFavourite(movie.id) ? "Liked" : "Not Liked"}
               </h4>
               <h4>👁: {isWatched(movie.id) ? "Watched" : "Not Watched"}</h4>
               <Link to="/" className="btn btn-primary mt-4 ">

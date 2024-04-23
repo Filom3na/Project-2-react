@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState("");
+  const [genres, setGenres] = useState([]);
 
   //Declare Favourites and Watched arrays
   const [favourites, setFavourites] = useState(() => {
@@ -41,7 +42,7 @@ export default function Movies() {
       ? setFavourites(favourites.filter((favMovie) => favMovie.id !== movie.id))
       : setFavourites([...favourites, movie]);
   }
-
+  //Function to handle adding and removing from watched
   function handleWatched(movie) {
     const isWatched = watched.some(
       (watchedMovie) => watchedMovie.id === movie.id,
@@ -50,8 +51,7 @@ export default function Movies() {
       ? setWatched(
           watched.filter((watchedMovie) => watchedMovie.id !== movie.id),
         )
-      : // console.log('hello')
-        setWatched([...watched, movie]);
+      : setWatched([...watched, movie]);
   }
 
   useEffect(() => {
@@ -61,6 +61,7 @@ export default function Movies() {
           "https://ga-api.netlify.app/api/movies",
         );
         setMovies(data);
+        console.log(genres)
       } catch (error) {
         setError(error.message);
       }
@@ -68,15 +69,53 @@ export default function Movies() {
     getMovieData();
   }, []);
 
+  //Functions for Filters
+  function sortGenre(event) {
+    const genres = event.target.value;
+    if (genres === "") {
+      setGenres([]);
+    } else {
+      setGenres([genres]);
+    }
+  }
+
+
+  const filteredMovies = movies.filter((movie) => {
+    return genres.length === 0 || movie.genres.some((genre) => genres.includes(genre));
+  });
+
+
   return (
     <>
       <h1 className="text-center my-4">Movies Home</h1>
+      <div className="mb-4">
+        <select
+          className="form-select"
+          aria-label="Filter movies by genre"
+          value={genres}
+          onChange={sortGenre}
+        >
+          <option value="">All Genres</option>
+          {[...new Set(movies.flatMap((movie) => movie.genres))].map(
+            (genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ),
+          )}
+        </select>
+      </div>
       <Container fluid className="text-center">
         <Row>
-          {movies.length > 0 ? (
-            //We want to map through the movies array and display the data
-            movies.map((movie) => {
+          {filteredMovies.length > 0 ? (
+            filteredMovies.map((movie) => {
               const { id, title, image, rating, year } = movie;
+              const favTrue = favourites.some(
+                (favMovie) => favMovie.id === movie.id,
+              );
+              const watchedTrue = watched.some(
+                (watchedMovie) => watchedMovie.id === movie.id,
+              );
               return (
                 <Col className="mb-5" key={id} xs={12} sm={6} md={4} lg={3}>
                   <Card className="h-100">
@@ -92,13 +131,13 @@ export default function Movies() {
                       </Card.Text>
                       <div className="d-flex align-items-center justify-content-center">
                         <button
-                          className="btn btn-light mx-3"
+                          className={`btn mx-3 ${favTrue ? "btn-warning" : "btn-light"}`}
                           onClick={() => handleFavourite(movie)}
                         >
                           🩷
                         </button>
-                        <button 
-                          className="btn btn-light mx-3" 
+                        <button
+                          className={`btn mx-3 ${watchedTrue ? "btn-success" : "btn-light"}`}
                           onClick={() => handleWatched(movie)}
                         >
                           👁

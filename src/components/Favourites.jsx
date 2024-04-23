@@ -24,13 +24,12 @@ export default function Favourites() {
   useEffect(() => {
     const storedFavourites = JSON.parse(localStorage.getItem("favourites")) || [];
     setMovies(storedFavourites);
-    console.log(movies)
   }, [movies]);
   
   // useEffect to add the favourite film to local storage
   useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
-  }, [movies]);
+  }, [favourites]);
 
 
   //Function to handle adding and removing from favourites
