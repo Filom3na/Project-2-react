@@ -82,7 +82,7 @@ export default function Movies() {
                   <Card className="h-100">
                     <Card.Img
                       variant="top"
-                      src="http://via.placeholder.com/300"
+                      src={image}
                     />
                     <Card.Body>
                       <Card.Title className="">{title}</Card.Title>
