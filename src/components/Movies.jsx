@@ -17,16 +17,14 @@ export default function Movies() {
 
   //Declare Favourites and Watched arrays
   const [favourites, setFavourites] = useState(() => {
-  const storedFavourites = localStorage.getItem("favourites");
-  return storedFavourites ? JSON.parse(storedFavourites) : [];
-  })
+    const storedFavourites = localStorage.getItem("favourites");
+    return storedFavourites ? JSON.parse(storedFavourites) : [];
+  });
 
-  
   const [watched, setWatched] = useState(() => {
     const storedWatched = localStorage.getItem("watched");
     return storedWatched ? JSON.parse(storedWatched) : [];
   });
-
 
   useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
@@ -39,20 +37,21 @@ export default function Movies() {
   //Function to handle adding and removing from favourites
   function handleFavourite(movie) {
     const isFavourite = favourites.some((favMovie) => favMovie.id === movie.id);
-    isFavourite ?
-      setFavourites(favourites.filter((favMovie) => favMovie.id !== movie.id))
-      :
-      setFavourites([...favourites, movie]);
+    isFavourite
+      ? setFavourites(favourites.filter((favMovie) => favMovie.id !== movie.id))
+      : setFavourites([...favourites, movie]);
   }
-  
-  
 
   function handleWatched(movie) {
-    const isWatched = watched.some((watchedMovie) => watchedMovie.id === movie.id);
-    isWatched ?
-      setWatched(watched.filter((watchedMovie) => watchedMovie.id !== movie.id))
-      :
-      setWatched([...watched, movie]);
+    const isWatched = watched.some(
+      (watchedMovie) => watchedMovie.id === movie.id,
+    );
+    isWatched
+      ? setWatched(
+          watched.filter((watchedMovie) => watchedMovie.id !== movie.id),
+        )
+      : // console.log('hello')
+        setWatched([...watched, movie]);
   }
 
   useEffect(() => {
@@ -83,25 +82,30 @@ export default function Movies() {
                   <Card className="h-100">
                     <Card.Img
                       variant="top"
-                      src={image}
+                      src="http://via.placeholder.com/300"
                     />
                     <Card.Body>
-                      <Card.Title>{title}</Card.Title>
+                      <Card.Title className="">{title}</Card.Title>
                       <Card.Text>
                         <span className="m-2">⭐:{rating}</span>
                         <span className="m-2">📅:{year}</span>
                       </Card.Text>
-                      <div className="d-flex justify-content-around">
-                        <button onClick= {() => handleFavourite(movie)}>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <button
+                          className="btn btn-light mx-3"
+                          onClick={() => handleFavourite(movie)}
+                        >
                           🩷
                         </button>
-                        <button onClick= {() => handleWatched(movie)}>👁</button>
-                      </div>
-                      <Button className="btn">
-                        <Link
-                          to={`/movies/${id}`}
-                          className="btn btn-brand mt-auto"
+                        <button 
+                          className="btn btn-light mx-3" 
+                          onClick={() => handleWatched(movie)}
                         >
+                          👁
+                        </button>
+                      </div>
+                      <Button className="btn mt-1">
+                        <Link to={`${id}`} className="btn btn-brand">
                           View Details
                         </Link>
                       </Button>

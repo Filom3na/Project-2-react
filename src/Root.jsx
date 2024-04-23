@@ -5,6 +5,10 @@ import Navbar from "./components/subcomponents/Navbar";
 import Footer from "./components/subcomponents/Footer";
 
 export default function Root() {
+
+  
+
+  
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
