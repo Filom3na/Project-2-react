@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
-export default function SingleMovie({ favourites, watched }) {
+export default function SingleMovie() {
   const [movie, setMovie] = useState();
   const [error, setError] = useState("");
 
@@ -38,30 +38,37 @@ export default function SingleMovie({ favourites, watched }) {
   const isWatched = (id) => {
     return watchedMovie.some((seenMovie) => seenMovie.id === id);
   };
-  
+  // const isWatched = (id) => watchedMovie.some((watchedMovie) => watchedMovie.id === id);
+
   return (
     <div>
       {movie ? (
-        <Container className="my-4">
+        <Container className="my-4 text-center ">
           <h1>Movie Details</h1>
           <Row key={id}>
             <Col>
-              <img className="w-100" src={movie.image} alt={movie.title} />
+              <img className="w-100 p-4" src={movie.image} alt={movie.title} />
             </Col>
-            <h2>{movie.title}</h2>
-            <h2>Genres: {movie.genres}</h2>
-            <h2>Year: {movie.year}</h2>
-            <h2>Rating: {movie.rating}</h2>
-            <h2>🩷: {isFavourite(movie.id) ? "Y" : "N"}</h2>
-            <h2>👁: {isWatched(movie.id) ? "Y" : "N"}</h2>
-            <Col></Col>
-            <Link to="/" className="btn btn-primary">
-              Back to movies
-            </Link>
+
+            <Col className="my-auto">
+              <h2 className="pb-2">{movie.title}</h2>
+              <h4>Genres: {movie.genres}</h4>
+              <h4>Year: {movie.year}</h4>
+              <h4>Rating: {movie.rating}</h4>
+              <h4>
+                🩷: {isFavourite(movie.id) ? "Favourite" : "Not Favourite"}
+              </h4>
+              <h4>👁: {isWatched(movie.id) ? "Watched" : "Not Watched"}</h4>
+              <Link to="/" className="btn btn-primary mt-4 ">
+                Back to movies
+              </Link>
+            </Col>
           </Row>
         </Container>
+      ) : error ? (
+        <p>{error}</p>
       ) : (
-        console.log(error)
+        <Spinner className="mx-auto" animation="border" variant="secondary" />
       )}
     </div>
   );
