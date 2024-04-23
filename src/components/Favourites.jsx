@@ -10,14 +10,10 @@ import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 
-
-
 export default function Favourites() {
-
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState("");
 
-  //NEW STUFF
   //Declare Favourites and Watched arrays
   const [favourites, setFavourites] = useState(() => {
     const storedFavourites = localStorage.getItem("favourites");
@@ -46,12 +42,12 @@ export default function Favourites() {
   }
 
   return (
-
     <>
       <h1 className="text-center my-4">Favourites</h1>
       <Container fluid className="text-center">
-        <Row>
-          {movies.map((movie) => {
+        <Row> 
+          { movies.length > 0 ?
+            movies.map((movie) => {
               const { id, title, image, rating, year } = movie;
               return (
                 <Col className="mb-5" key={id} xs={12} sm={6} md={4} lg={3}>
@@ -84,14 +80,20 @@ export default function Favourites() {
                 </Col>
               );
             })
+            :
+            <>
+              <Container>
+            <h3>Your Favourite Films will show here</h3>
+              <Link to="/" className="btn btn-primary btn-lg mt-4 ">
+              Back to movies
+              </Link>
+              </Container>
+            </>
           }
         </Row>
       </Container>
     </>
-    
-    
   )
-
 }
 
  
