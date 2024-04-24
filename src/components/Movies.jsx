@@ -84,52 +84,50 @@ export default function Movies() {
     return genres.length === 0 || movie.genres.some((genre) => genres.includes(genre));
   });
 
-
+  
   return (
-    <>
-      <h1 className="text-center my-4">Movies Home</h1>
+    <div className="text-center" style={{ fontFamily: "Arial, sans-serif" }}>
+      <h1 className="my-4" style={{ fontFamily: "Georgia, serif" }}>Movies Home</h1>
       <div className="mb-4">
-        <select
-          className="form-select"
-          aria-label="Filter movies by genre"
-          value={genres}
-          onChange={sortGenre}
-        >
-          <option value="">All Genres</option>
-          {[...new Set(movies.flatMap((movie) => movie.genres))].map(
-            (genre) => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ),
-          )}
-        </select>
+        <Row>
+          <Col xs={12} md={8} className="mx-auto">
+            <select
+              className="form-select"
+              style={{ width: "90%", margin: "0 auto" }}
+              aria-label="Filter movies by genre"
+              value={genres}
+              onChange={sortGenre}
+            >
+              <option value="">All Genres</option>
+              {[...new Set(movies.flatMap((movie) => movie.genres))].map(
+                (genre) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                )
+              )}
+            </select>
+          </Col>
+        </Row>
       </div>
-      <Container fluid className="text-center">
+      <Container fluid>
         <Row>
           {filteredMovies.length > 0 ? (
             filteredMovies.map((movie) => {
               const { id, title, image, rating, year } = movie;
-              const favTrue = favourites.some(
-                (favMovie) => favMovie.id === movie.id,
-              );
-              const watchedTrue = watched.some(
-                (watchedMovie) => watchedMovie.id === movie.id,
-              );
+              const favTrue = favourites.some((favMovie) => favMovie.id === movie.id);
+              const watchedTrue = watched.some((watchedMovie) => watchedMovie.id === movie.id);
               return (
                 <Col className="mb-5" key={id} xs={12} sm={6} md={4} lg={3}>
                   <Card className="h-100">
-                    <Card.Img
-                      variant="top"
-                      src={image}
-                    />
+                    <Card.Img variant="top" src={image} />
                     <Card.Body>
-                      <Card.Title className="">{title}</Card.Title>
-                      <Card.Text>
-                        <span className="m-2">⭐:{rating}</span>
-                        <span className="m-2">📅:{year}</span>
+                      <Card.Title>{title}</Card.Title>
+                      <Card.Text style={{ fontFamily: "Verdana, sans-serif" }}>
+                        <span className="m-2">⭐ {rating}</span>
+                        <span className="m-2">📅 {year}</span>
                       </Card.Text>
-                      <div className="d-flex align-items-center justify-content-center">
+                      <div className="d-flex align-items-center justify-content-center mb-3">
                         <button
                           className={`btn mx-3 ${favTrue ? "btn-warning" : "btn-light"}`}
                           onClick={() => handleFavourite(movie)}
@@ -144,7 +142,7 @@ export default function Movies() {
                         </button>
                       </div>
                       <Button className="btn mt-1">
-                        <Link to={`${id}`} className="btn btn-brand">
+                        <Link to={`${id}`} className="text-white text-decoration-none">
                           View Details
                         </Link>
                       </Button>
@@ -156,14 +154,10 @@ export default function Movies() {
           ) : error ? (
             <p className="text-danger">{error}</p>
           ) : (
-            <Spinner
-              className="mx-auto"
-              animation="border"
-              variant="secondary"
-            />
+            <Spinner className="mx-auto" animation="border" variant="secondary" />
           )}
         </Row>
       </Container>
-    </>
+    </div>
   );
 }

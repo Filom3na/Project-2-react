@@ -40,25 +40,22 @@ export default function SingleMovie() {
   };
 
   return (
-    <div>
+    <div style={{ fontFamily: "Arial, sans-serif" }}>
       {movie ? (
-        <Container className="my-4 text-center ">
-          <h1>Movie Details</h1>
-          <Row key={id}>
-            <Col>
-              <img className="w-100 p-4" src={movie.image} alt={movie.title} />
+        <Container className="my-4 text-center">
+          <h1 style={{ fontFamily: "Georgia, serif" }}>Movie Details</h1>
+          <Row>
+            <Col md={6}>
+              <img className="img-fluid p-4" src={movie.image} alt={movie.title} />
             </Col>
-
-            <Col className="my-auto">
-              <h2 className="pb-2">{movie.title}</h2>
-              <h4>Genres: {movie.genres.join(', ')}</h4>
+            <Col md={6} className="my-auto">
+              <h2 style={{ fontFamily: "Verdana, sans-serif" }}>{movie.title}</h2>
+              <h4>Genres: {movie.genres.join(", ")}</h4>
               <h4>Year: {movie.year}</h4>
               <h4>Rating: {movie.rating}</h4>
-              <h4>
-                🩷: {isFavourite(movie.id) ? "Liked" : "Not Liked"}
-              </h4>
+              <h4>🩷: {isFavourite(movie.id) ? "Liked" : "Not Liked"}</h4>
               <h4>👁: {isWatched(movie.id) ? "Watched" : "Not Watched"}</h4>
-              <Link to="/" className="btn btn-primary mt-4 ">
+              <Link to="/" className="btn btn-primary mt-4">
                 Back to movies
               </Link>
             </Col>

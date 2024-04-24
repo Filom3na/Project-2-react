@@ -50,36 +50,33 @@ export default function Watched() {
 
 
   return (
-    <>
-      <h1 className="text-center my-4">Watched</h1>
-      <Container fluid className="text-center">
-        <Row> 
-          { movies.length > 0 ?
+    <div className="text-center" style={{ fontFamily: "Arial, sans-serif" }}>
+      <h1 className="my-4" style={{ fontFamily: "Georgia, serif" }}>Watched</h1>
+      <Container fluid>
+        <Row>
+          {movies.length > 0 ? (
             movies.map((movie) => {
               const { id, title, image, rating, year } = movie;
               return (
                 <Col className="mb-5" key={id} xs={12} sm={6} md={4} lg={3}>
                   <Card className="h-100">
-                    <Card.Img
-                      variant="top"
-                      src={image}
-                    />
+                    <Card.Img variant="top" src={image} />
                     <Card.Body>
-                      <Card.Title className="">{title}</Card.Title>
-                      <Card.Text>
-                        <span className="m-2">⭐:{rating}</span>
-                        <span className="m-2">📅:{year}</span>
+                      <Card.Title>{title}</Card.Title>
+                      <Card.Text style={{ fontFamily: "Verdana, sans-serif" }}>
+                        <span className="m-2">⭐ {rating}</span>
+                        <span className="m-2">📅 {year}</span>
                       </Card.Text>
-                      <div className="d-flex align-items-center justify-content-center">
-                        <button 
-                          className="btn btn-light mx-3" 
+                      <div className="d-flex align-items-center justify-content-center mb-3">
+                        <button
+                          className="btn btn-light mx-3"
                           onClick={() => handleWatched(movie)}
                         >
                           👁
                         </button>
                       </div>
                       <Button className="btn mt-1">
-                        <Link to={`${id}`} className="btn btn-brand">
+                        <Link to={`${id}`} className="text-white text-decoration-none">
                           View Details
                         </Link>
                       </Button>
@@ -88,20 +85,18 @@ export default function Watched() {
                 </Col>
               );
             })
-            :
-            <>
-              <Container>
-            <h3>Your Watched Films will show here</h3>
-              <Link to="/" className="btn btn-primary btn-lg mt-4 ">
-              Back to movies
+          ) : (
+            <div>
+              <h3>Your Watched Films will show here</h3>
+              <Link to="/" className="btn btn-primary btn-lg mt-4">
+                Back to movies
               </Link>
-              </Container>
-            </>
-          }
+            </div>
+          )}
         </Row>
       </Container>
-    </>
-  )
+    </div>
+  );
 }
 
 
