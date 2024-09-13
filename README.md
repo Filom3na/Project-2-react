@@ -72,6 +72,10 @@ To run this project locally:
 ## Planning
 Our planning phase was crucial to the project's success, especially given our tight two-day timeframe. Here's an overview of our planning process:
 
+![Screenshot 2024-04-22 at 08 56 54](https://github.com/user-attachments/assets/9dff3bd4-06fb-4e0e-99fa-6e5da232b540)
+![Screenshot 2024-04-24 at 12 15 44](https://github.com/user-attachments/assets/e6e96bd3-6bfe-416a-a1f7-5b439f7e55c0)
+
+
 1. **Project Scope Definition:** 
    - We began by clearly defining what we wanted to achieve: a React-based movie gallery that allows users to browse, like, and create watch lists.
    - We prioritised features, deciding that the core functionality (displaying movies, liking, and watch lists) was essential, while search and filtering would be stretch goals.
